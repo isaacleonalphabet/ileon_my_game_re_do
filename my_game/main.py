@@ -5,8 +5,10 @@ import pygame as pg
 import random
 import os
 # import settings 
+# test comment for git 
 from settings import *
 from sprites import *
+from random import randint
 # from pg.sprite import Sprite
 
 # set up assets folders
@@ -28,8 +30,18 @@ clock = pg.time.Clock()
 
 all_sprites = pg.sprite.Group()
 enemies = pg.sprite.Group()
+pewpews = pg.sprite.Group()
 player = Player()
 invader = Mob()
+invader.image.fill((0,0,225))
+invader.vel = vec(randint(8,80), randint(8,80))
+
+for i in range(0,10):
+    m = Mob()
+    m.vel = vec(randint(8,80), randint(8,80))
+    all_sprites.add(m)
+    enemies.add(m)
+
 # testSprite = Sprite()
 # testSprite.image = pg.Surface((50,50))
 # testSprite.image.fill(GREEN)
@@ -51,11 +63,12 @@ while RUNNING:
             RUNNING = False
             # break
     # print(get_mouse_now())
-    ### update section of game loop (if updates take longer the 1/30th of a second, you will get laaaaag...)
+    # update section of game loop (if updates take longer the 1/30th of a second, you will get lag...)
     all_sprites.update()
 
-    blocks_hit_list = pg.sprite.spritecollide(Mob, enemies, True)
+    blocks_hit_list = pg.sprite.spritecollide(player, enemies, True)
     for block in blocks_hit_list:
+        print(enemies)
         # print(enemies)
         pass
     ### draw and render section of game loop
